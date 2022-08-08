@@ -1,20 +1,22 @@
 package repository;
 
 import model.User;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Component
 public class UserRepoImpl implements UserRepo {
-    private static final AtomicInteger currentId = new AtomicInteger();
-    private static final Map<String, User> users = new ConcurrentHashMap<>();
+    private final AtomicInteger currentId = new AtomicInteger();
+    private final Map<String, User> users = new ConcurrentHashMap<>();
 
     public UserRepoImpl() {
-        /*addUser("Юля");
+        addUser("Юля");
         addUser("Вика");
         addUser("Оля");
-        addUser("Марина");*/
+        addUser("Марина");
     }
 
     @Override

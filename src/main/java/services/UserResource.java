@@ -1,6 +1,7 @@
 package services;
 
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import repository.UserRepo;
 import repository.UserRepoImpl;
 
@@ -11,20 +12,35 @@ import java.util.*;
 
 @Path("/users")
 public class UserResource {
-    private UserRepo userRepo = new UserRepoImpl();
+    @Autowired
+    private UserRepo userRepo;
 
-    @GET
+    /*@GET
     @Produces({MediaType.APPLICATION_JSON})
     public Map<String, User> getUsers() {
         return userRepo.getUsers();
-    }
+    }*/
 
     @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    public String getUsers() {
+        return userRepo.getUsers().toString();
+    }
+
+/*    @GET
     @Path("/{id}")
     @Consumes({MediaType.TEXT_PLAIN})
     @Produces({MediaType.APPLICATION_JSON})
     public User getUsersById(@PathParam("id") int id) {
         return userRepo.getUserById(id);
+    }*/
+
+    @GET
+    @Path("/{id}")
+    @Consumes({MediaType.TEXT_PLAIN})
+    @Produces({MediaType.TEXT_PLAIN})
+    public String getUsersById(@PathParam("id") int id) {
+        return userRepo.getUserById(id).toString();
     }
 
     @POST
