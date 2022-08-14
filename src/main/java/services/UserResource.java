@@ -2,6 +2,7 @@ package services;
 
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import repository.UserRepo;
 import repository.UserRepoImpl;
 
@@ -10,8 +11,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.*;
 
+//@Component
 @Path("/users")
 public class UserResource {
+    public UserResource() {
+        System.out.println("Вызван конструктор!");
+    }
+
     @Autowired
     private UserRepo userRepo;
 
