@@ -15,7 +15,7 @@ import java.util.*;
 @Path("/users")
 public class UserResource {
     public UserResource() {
-        System.out.println("Вызван конструктор!");
+        System.out.println("Вызван конструктор UserResource!");
     }
 
     @Autowired

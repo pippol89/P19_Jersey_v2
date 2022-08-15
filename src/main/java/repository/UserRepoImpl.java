@@ -13,6 +13,7 @@ public class UserRepoImpl implements UserRepo {
     private final Map<String, User> users = new ConcurrentHashMap<>();
 
     public UserRepoImpl() {
+        System.out.println("Вызван конструктор UserRepoImpl !");
         addUser("Юля");
         addUser("Вика");
         addUser("Оля");
