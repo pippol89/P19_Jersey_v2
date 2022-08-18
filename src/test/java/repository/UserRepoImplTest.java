@@ -22,7 +22,7 @@ public class UserRepoImplTest {
 
     @Test
     public void getUsers() {
-        int size = userRepo.getUsers().size();
+        final int size = userRepo.getUsers().size();
 
         int testUserId = userRepo.addUser(testUserName);
         Assert.assertEquals(userRepo.getUsers().size(), size + 1);

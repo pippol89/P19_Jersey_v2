@@ -3,9 +3,12 @@ package repository;
 import model.User;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 public class UserRepoImpl implements UserRepo {
@@ -21,8 +24,8 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public Map<String, User> getUsers() {
-        return users;
+    public List<User> getUsers() {
+        return new ArrayList<>(users.values());
     }
 
     @Override

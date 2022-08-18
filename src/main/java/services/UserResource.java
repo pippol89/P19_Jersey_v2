@@ -2,14 +2,12 @@ package services;
 
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import repository.UserRepo;
-import repository.UserRepoImpl;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.*;
+import java.util.List;
 
 //@Component
 @Path("/users")
@@ -21,32 +19,18 @@ public class UserResource {
     @Autowired
     private UserRepo userRepo;
 
-    /*@GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public Map<String, User> getUsers() {
-        return userRepo.getUsers();
-    }*/
-
     @GET
-    @Produces({MediaType.TEXT_PLAIN})
-    public String getUsers() {
-        return userRepo.getUsers().toString();
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<User> getUsers() {
+        return userRepo.getUsers();
     }
 
-/*    @GET
+    @GET
     @Path("/{id}")
     @Consumes({MediaType.TEXT_PLAIN})
     @Produces({MediaType.APPLICATION_JSON})
     public User getUsersById(@PathParam("id") int id) {
         return userRepo.getUserById(id);
-    }*/
-
-    @GET
-    @Path("/{id}")
-    @Consumes({MediaType.TEXT_PLAIN})
-    @Produces({MediaType.TEXT_PLAIN})
-    public String getUsersById(@PathParam("id") int id) {
-        return userRepo.getUserById(id).toString();
     }
 
     @POST
