@@ -12,21 +12,21 @@
 Текущая реализация.
 Варианты запуска:
 1.Получение пользователей (GET):
-http://localhost:8085/P19_Jersey_v2_war/users/
+http://localhost:8085/UserRestApp/users/
 
 2.Получение пользователя по id (GET):
-http://localhost:8085/P19_Jersey_v2_war/users/1
+http://localhost:8085/UserRestApp/users/1
 
 3.Добавление пользователей (POST):
-http://localhost:8085/P19_Jersey_v2_war/users/Ирина
-http://localhost:8085/P19_Jersey_v2_war/users/Оля
-http://localhost:8085/P19_Jersey_v2_war/users/Галина
+http://localhost:8085/UserRestApp/users/Ирина
+http://localhost:8085/UserRestApp/users/Оля
+http://localhost:8085/UserRestApp/users/Галина
 
 4.Обновление пользователя (PUT):
-http://localhost:8085/P19_Jersey_v2_war/users/1?name=ИринаВасильевна
+http://localhost:8085/UserRestApp/users/1?name=ИринаВасильевна
 
 5.Удаление пользователя (DELETE):
-http://localhost:8085/P19_Jersey_v2_war/users/1
+http://localhost:8085/UserRestApp/users/1
 
-
+Сборка: mvn clean package
 Для запуска интеграционных тестов: mvn verify -Pintegration-test

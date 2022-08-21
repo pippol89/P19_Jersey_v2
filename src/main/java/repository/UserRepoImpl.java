@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Component
 public class UserRepoImpl implements UserRepo {
@@ -16,7 +15,7 @@ public class UserRepoImpl implements UserRepo {
     private final Map<String, User> users = new ConcurrentHashMap<>();
 
     public UserRepoImpl() {
-        System.out.println("Вызван конструктор UserRepoImpl !");
+        System.out.println("Вызван конструктор UserRepoImpl!");
         addUser("Юля");
         addUser("Вика");
         addUser("Оля");

@@ -14,7 +14,7 @@ public class ResourceFilter implements ContainerRequestFilter, ContainerResponse
     private final Logger logger = LoggerFactory.getLogger(ResourceFilter.class);
 
     public ResourceFilter() {
-        System.out.println("Вызван конструктор QueryFilter!");
+        System.out.println("Вызван конструктор ResourceFilter!");
     }
 
     @Override

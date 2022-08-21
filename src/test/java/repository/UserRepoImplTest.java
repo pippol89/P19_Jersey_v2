@@ -8,7 +8,7 @@ import org.junit.Test;
 public class UserRepoImplTest {
     private static UserRepoImpl userRepo;
     private static final String testUserName = "testUser";
-    private static final int notExistsUser = 555;
+    private static final int notExistsUserId = 555;
 
     @BeforeClass
     public static void prepareTestData() {
@@ -20,6 +20,9 @@ public class UserRepoImplTest {
         userRepo.addUser("Надя");
     }
 
+    /***
+     * Проверяется актуальный размер списка после добавления/удаления пользователя.
+     */
     @Test
     public void getUsers() {
         final int size = userRepo.getUsers().size();
@@ -31,9 +34,13 @@ public class UserRepoImplTest {
         Assert.assertEquals(userRepo.getUsers().size(), size);
     }
 
+    /***
+     * Проверяется поведение при поиске несуществующего пользователя,
+     * добавлении пользователя и затем поиск добавленного пользователя.
+     */
     @Test
     public void getUserById() {
-        Assert.assertNull(userRepo.getUserById(notExistsUser));
+        Assert.assertNull(userRepo.getUserById(notExistsUserId));
 
         int testUserId = userRepo.addUser(testUserName);
         User testUser = userRepo.getUserById(testUserId);
@@ -44,6 +51,9 @@ public class UserRepoImplTest {
         userRepo.removeUser(testUserId);
     }
 
+    /***
+     * Проверяется корректность возвращаемого значения, после добавления пользователя.
+     */
     @Test
     public void addUser() {
         int testUserId = userRepo.addUser(testUserName);
@@ -52,6 +62,10 @@ public class UserRepoImplTest {
         userRepo.removeUser(testUserId);
     }
 
+    /***
+     * Проверяется добавление, затем обновление добавленного пользователя,
+     * корректность при обновление несуществующего пользователя.
+     */
     @Test
     public void updateUser() {
         final String newTestUserName = "testUserNameNew";
@@ -63,9 +77,12 @@ public class UserRepoImplTest {
 
         userRepo.removeUser(testUserId);
 
-        Assert.assertEquals(userRepo.updateUser(notExistsUser, newTestUserName), 0);
+        Assert.assertEquals(userRepo.updateUser(notExistsUserId, newTestUserName), 0);
     }
 
+    /***
+     * Проверяется корректность добавления, затем удаление добавленного пользователя.
+     */
     @Test
     public void removeUser() {
         int testUserId = userRepo.addUser(testUserName);
