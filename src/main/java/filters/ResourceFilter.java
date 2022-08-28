@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class ResourceFilter implements ContainerRequestFilter, ContainerResponseFilter {
     private static final String beginTimeProp = "filters.ResourceFilter.beginTime";
-    private final Logger logger = LoggerFactory.getLogger(ResourceFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(ResourceFilter.class);
 
     public ResourceFilter() {
         System.out.println("Вызван конструктор ResourceFilter!");
@@ -25,7 +25,7 @@ public class ResourceFilter implements ContainerRequestFilter, ContainerResponse
         sb.append(" - HttpMethod: ").append(requestContext.getMethod());
         sb.append(" - Path: ").append(requestContext.getUriInfo().getPath());
         sb.append(" - QueryParams: ").append(requestContext.getUriInfo().getQueryParameters());
-        sb.append(" - Header: ").append(requestContext.getHeaders());
+        sb.append(" - Headers: ").append(requestContext.getHeaders());
         //sb.append(" - Entity: ").append());
 
         logger.info(sb.toString());
@@ -37,7 +37,7 @@ public class ResourceFilter implements ContainerRequestFilter, ContainerResponse
             long leadTime = System.currentTimeMillis() - (long)requestContext.getProperty(beginTimeProp);
 
             StringBuilder sb = new StringBuilder("HTTP ответ: ");
-            sb.append(" - Header: ").append(responseContext.getHeaders());
+            sb.append(" - Headers: ").append(responseContext.getHeaders());
             sb.append(" - Entity: ").append(responseContext.getEntity());
             sb.append(" - Status: ").append(responseContext.getStatus());
             sb.append(" - Время обработки: ").append((double)leadTime / 1000).append(" сек");

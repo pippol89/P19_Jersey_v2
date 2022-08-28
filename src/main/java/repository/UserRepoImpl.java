@@ -29,11 +29,7 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public User getUserById(int id) {
-        if (users.containsKey(String.valueOf(id))) {
-            return users.get(String.valueOf(id));
-        } else {
-            return null;
-        }
+        return users.get(String.valueOf(id));
     }
 
     @Override
@@ -45,21 +41,14 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public int updateUser(int id, String name) {
-        if (users.containsKey(String.valueOf(id))) {
-            users.put(String.valueOf(id), new User(id, name));
-            return id;
-        } else {
-            return 0;
-        }
+        return users.computeIfPresent(String.valueOf(id), (k, v) -> {
+            v.setName(name);
+            return v;
+        }) == null ? 0 : id;
     }
 
     @Override
     public int removeUser(int id) {
-        if (users.containsKey(String.valueOf(id))) {
-            users.remove(String.valueOf(id));
-            return id;
-        } else {
-            return 0;
-        }
+        return users.remove(String.valueOf(id)) == null ? 0 : id;
     }
 }

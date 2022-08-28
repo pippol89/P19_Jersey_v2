@@ -1,8 +1,8 @@
 package model.answer;
 
 public class UserAnswer {
-    int id;
-    String msg;
+    private int id;
+    private String msg;
 
     public UserAnswer() {
     }

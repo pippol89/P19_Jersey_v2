@@ -36,40 +36,42 @@ public class UserResourceIT {
     }
 
     private int getUsersSize() {
-        final Response respGetUsers = webTarget.request(MediaType.APPLICATION_JSON).get();
-        Assert.assertEquals(respGetUsers.getStatus(), Status.OK.getStatusCode());
+        int size;
+        try (final Response respGetUsers = webTarget.request(MediaType.APPLICATION_JSON).get()) {
+            Assert.assertEquals(respGetUsers.getStatus(), Status.OK.getStatusCode());
 
-        final List<User> users = respGetUsers.readEntity(new GenericType<List<User>>() {
-        });
-        respGetUsers.close();
-
-        return users.size();
+            size = respGetUsers.readEntity(new GenericType<List<User>>() {
+            }).size();
+        }
+        return size;
     }
 
     private UserAnswer addUser(String name) {
-        final Response respAddUser = webTarget.path(name).request(MediaType.APPLICATION_JSON).post(Entity.entity("", MediaType.TEXT_PLAIN_TYPE));
-        Assert.assertEquals(respAddUser.getStatus(), Status.OK.getStatusCode());
-        final UserAnswer addUserAnswer = respAddUser.readEntity(UserAnswer.class);
-        respAddUser.close();
+        UserAnswer addUserAnswer;
 
+        try (final Response respAddUser = webTarget.path(name).request(MediaType.APPLICATION_JSON).post(Entity.entity("", MediaType.TEXT_PLAIN_TYPE))) {
+            Assert.assertEquals(respAddUser.getStatus(), Status.OK.getStatusCode());
+            addUserAnswer = respAddUser.readEntity(UserAnswer.class);
+        }
         return addUserAnswer;
     }
 
     private UserAnswer removeUser(int id) {
-        final Response respRemoveUser = webTarget.path(String.valueOf(id)).request(MediaType.APPLICATION_JSON).delete();
-        final UserAnswer remUserAnswer = respRemoveUser.readEntity(UserAnswer.class);
-        Assert.assertEquals(respRemoveUser.getStatus(), Status.OK.getStatusCode());
-        respRemoveUser.close();
+        UserAnswer remUserAnswer;
 
+        try (final Response respRemoveUser = webTarget.path(String.valueOf(id)).request(MediaType.APPLICATION_JSON).delete()) {
+            remUserAnswer = respRemoveUser.readEntity(UserAnswer.class);
+            Assert.assertEquals(respRemoveUser.getStatus(), Status.OK.getStatusCode());
+        }
         return remUserAnswer;
     }
 
     private User getUserById(int id) {
-        final Response respFindUser = webTarget.path(String.valueOf(id)).request(MediaType.APPLICATION_JSON).get();
-        Assert.assertEquals(respFindUser.getStatus(), Status.OK.getStatusCode());
-        final User user = respFindUser.readEntity(User.class);
-        respFindUser.close();
+        User user;
 
+        try (final Response respFindUser = webTarget.path(String.valueOf(id)).request(MediaType.APPLICATION_JSON).get()) {
+            user = respFindUser.readEntity(User.class);
+        }
         return user;
     }
 
@@ -119,11 +121,11 @@ public class UserResourceIT {
     public void updateUser() {
         final UserAnswer addUserAnswer = addUser("TestUser");
 
-        final Response respUpdateUser = webTarget.path(String.valueOf(addUserAnswer.getId())).queryParam("name", "newUserName").request(MediaType.APPLICATION_JSON).put(Entity.entity("", MediaType.TEXT_PLAIN_TYPE));
-        Assert.assertEquals(respUpdateUser.getStatus(), Status.OK.getStatusCode());
-        final UserAnswer updateUserAnswer = respUpdateUser.readEntity(UserAnswer.class);
-        respUpdateUser.close();
-        Assert.assertEquals(updateUserAnswer.getId(), addUserAnswer.getId());
+        try (final Response respUpdateUser = webTarget.path(String.valueOf(addUserAnswer.getId())).queryParam("name", "newUserName").request(MediaType.APPLICATION_JSON).put(Entity.entity("", MediaType.TEXT_PLAIN_TYPE))) {
+            Assert.assertEquals(respUpdateUser.getStatus(), Status.OK.getStatusCode());
+            final UserAnswer updateUserAnswer = respUpdateUser.readEntity(UserAnswer.class);
+            Assert.assertEquals(updateUserAnswer.getId(), addUserAnswer.getId());
+        }
     }
 
     /***
