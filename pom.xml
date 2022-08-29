@@ -83,6 +83,37 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <version>9.4.48.v20220622</version>
+                        <configuration>
+                            <!--<scanIntervalSeconds>10</scanIntervalSeconds>
+                            <war>C:\JAVA_\Codes\jersey\my\P19_Jersey_v2\target\UserRestApp.war</war>-->
+                            <httpConnector>
+                                <port>8999</port>
+                            </httpConnector>
+                            <stopKey>quit</stopKey>
+                            <stopPort>9000</stopPort>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-jetty</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop-jetty</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${maven.surefire.plugin}</version>
                         <executions>
@@ -133,37 +164,9 @@
                 <configuration>
                     <excludes>
                         <exclude>**/*IT</exclude>
+                        <exclude>**/*IntegrationTest</exclude>
                     </excludes>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.48.v20220622</version>
-                <configuration>
-                    <httpConnector>
-                        <port>8999</port>
-                    </httpConnector>
-                    <stopKey>quit</stopKey>
-                    <stopPort>9000</stopPort>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>start-jetty</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>start</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>stop-jetty</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
