@@ -30,3 +30,9 @@ http://localhost:8085/UserRestApp/users/1
 
 Сборка: mvn clean package
 Для запуска интеграционных тестов: mvn verify -Pintegration-test
+
+Правка 0/0.0
+Правка 1
+Правка 1.1/1.2
+Правка 2
+Правка 3
