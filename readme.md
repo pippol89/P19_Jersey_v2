@@ -32,3 +32,4 @@ http://localhost:8085/UserRestApp/users/1
 Для запуска интеграционных тестов: mvn verify -Pintegration-test
 
 Правка 1
+Правка 2
